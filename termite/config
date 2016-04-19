@@ -1,0 +1,73 @@
+[options]
+scroll_on_output = false
+scroll_on_keystroke = true
+audible_bell = false
+mouse_autohide = false
+allow_bold = true
+dynamic_title = true
+urgent_on_bell = true
+clickable_url = true
+font = Terminus 9
+scrollback_lines = 1000
+search_wrap = true
+#icon_name = terminal
+#geometry = 640x480
+
+# "system", "on" or "off"
+cursor_blink = system
+
+# "block", "underline" or "ibeam"
+cursor_shape = underline
+
+# $BROWSER is used by default
+browser = firefox
+
+# set size hints for the window
+#size_hints = false
+
+# emit escape sequences for other keys modified by Control
+#modify_other_keys = false
+
+[colors]
+# --- special colors ---
+background = #0c1014
+foreground = #99d1ce
+
+# --- standard colors ---
+
+# black
+color0 = #0c1014
+color8 = #0a3749
+
+# red
+#color1 = #c01b73
+#color9 = #c01b73
+color1 =     #c23127
+color9 =     #E7212A
+
+# green
+color2 = #2aa889
+color10 = #2aa889
+
+# yellow
+color3 = #d26937
+color11 = #edb443
+
+# blue
+color4 = #195466
+color12 = #245361
+
+# magenta
+color5 = #4e5166
+color13 = #888ca6
+
+# cyan
+color6 = #33859E
+color14 = #33859E
+
+# white
+color7 = #99d1ce
+color15 = #99d1ce
+
+
+
