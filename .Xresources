@@ -31,56 +31,40 @@ URxvt.url-select.underline:                     true
 ! --- special colors ---
 
 *background: #0A0A0A
-*foreground: #DADADA
+*foreground: #EBEBEB
 
 ! --- standard colors ---
 
 ! black
 *color0: #000000
-
-! bright_black
 *color8: #2f2f2f
 
 ! red
 *color1: #c01b73
-
-! bright_red
 *color9: #c01b73
 
 ! green
 *color2: #5EE600
-
-! bright_green
 *color10: #5EE600
 
 ! yellow
 *color3: #fb8c00
-
-! bright_yellow
 *color11: #fb8c00
 
 ! blue
 *color4: #196fc6
-
-! bright_blue
 *color12: #196fc6
 
 ! magenta
 *color5: #6d1bc6
-
-! bright_magenta
 *color13: #6d1bc6
 
 ! cyan
 *color6: #1DE98F
-
-! bright_cyan
 *color14: #1DE98F
 
 ! white
-*color7: #dadada
-
-! bright_white
-*color15: #ffffff
+*color7: #D1E7ED
+*color15: #D1E7ED
 
 
