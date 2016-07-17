@@ -17,10 +17,10 @@ URxvt*cursorBlink:                              true
 URxvt*cursorUnderline:                          true
 !URxvt*cursorColor:                              #ffffff
 !URxvt*scrollColor:                              #151515
-URxvt*font:                                     xft:Terminus:style=Regular: pixelsize=13
-URxvt*boldFont:                                 xft:Terminus:style=bold:pixelsize=13
-URxvt*italicFont:                               xft:Terminus:style:italic:pixelsize=13
-URxvt*boldItalicFont:                           xft:Terminus:pixelsize=13:style=BoldItalic
+URxvt*font:                                     xft:monospace:style=Regular: pixelsize=11
+URxvt*boldFont:                                 xft:monospace:style=bold:pixelsize=11
+URxvt*italicFont:                               xft:monospace:style:italic:pixelsize=11
+URxvt*boldItalicFont:                           xft:monospace:pixelsize=11:style=BoldItalic
 URxvt.letterSpace :                             0
 URxvt.underlineURLs:                            true
 URxvt.url-select.underline:                     true
@@ -66,5 +66,3 @@ URxvt.url-select.underline:                     true
 ! white
 *color7: #D1E7ED
 *color15: #D1E7ED
-
-

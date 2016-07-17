@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+PERCENTAGE=$(upower -i $(upower -e | grep 'BAT') | grep  "percentage" | cut -c26- | tr -d %)
+STATE=$(upower -i $(upower -e | grep 'BAT') | grep  "state" | cut -c26-)
+
+if [ $STATE == "charging" ]
+then
+  echo "C: $PERCENTAGE"
+elif [ $PERCENTAGE -le "10" ]
+then
+  echo "$PERCENTAGE%"
+elif [ $PERCENTAGE -le "25" ]
+then
+  echo "$PERCENTAGE%"
+elif [ $PERCENTAGE -le "50" ]
+then
+  echo "$PERCENTAGE%"
+elif [ $PERCENTAGE -le "75" ]
+then
+  echo "$PERCENTAGE%"
+elif [ $PERCENTAGE -le "100" ]
+then
+  echo "$PERCENTAGE%"
+fi

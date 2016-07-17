@@ -1,0 +1,50 @@
+mkdir temo
+rename mainwindow.cpp
+rename mainwindow.h
+rename mainwindow.ui
+rename mpv-shot0006.png
+rename mpv-shot0007.png
+search systemd
+search Ghost
+shell unrar x ghost_in_the_shell_\(7173\).rar
+search gleb
+[1;5B
+open_with 
+shell ./CaveStory+_64
+search lightho
+mkdir lighthouse
+search light
+rename htoprcasdasd
+open_with m
+search Window
+search Fonts
+search consol
+search fonts
+mkdir WindowsFonts
+shell sudo  mkdir WindowsFonts
+shell sudo 
+shell sudo cp /mnt/Windows
+shell sudo cp /mnt/WINDOWS/Windows/Fonts .
+shell sudo cp /mnt/WINDOWS/Windows/Fonts . -r
+search emacs
+rename .emacs.d
+search gif
+search 
+rename .cache
+shell 
+rename .cachea
+rename fishd.HAL-01__
+rename fishd.HAL-01
+w
+shell touch itunes.theme
+open_with nivm
+open_with nvim
+rename config.css
+rename config
+rename .Xdefaults
+search vim
+
+mkdir 
+search ranger
+search i3
+delete

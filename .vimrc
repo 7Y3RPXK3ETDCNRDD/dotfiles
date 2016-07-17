@@ -33,36 +33,50 @@ set nocompatible
         endif
     """ }}}
 
+    "Comments and stuff
+    Plugin 'scrooloose/nerdcommenter'
     "YCM CONF GENERATOR
-    Plugin 'rdnetto/YCM-Generator'
+    "Plugin 'rdnetto/YCM-Generator'
+    "Auto cwd for current buffer
+    Plugin 'ssl/AutoCWD.vim'
+    "Better highlighting for c-family languages
+    Plugin 'bbchung/Clamp'
+    "Auto Complete
+    Plugin 'octol/vim-cpp-enhanced-highlight'
+    Plugin 'Shougo/deoplete.nvim'
     "File browser
     Plugin 'scrooloose/nerdtree'
     "Auto complete
-    Plugin 'Valloric/YouCompleteMe'
+    "Plugin 'Valloric/YouCompleteMe'
 
-    " Lust Explorer and juggler
-    Plugin 'sjbach/lusty'
+    "FOLDING
+    Plugin 'tmhedberg/SimpylFold'
 
     " Edit files using sudo/su
     Plugin 'chrisbra/SudoEdit.vim'
 
     " Fuzzy finder (files, mru, etc)
-    Plugin 'kien/ctrlp.vim'
+    Plugin 'ctrlpvim/ctrlp.vim'
 
     " A pretty statusline, bufferline integration
-    Plugin 'itchyny/lightline.vim'
+    "Plugin 'itchyny/lightline.vim'
     Plugin 'bling/vim-bufferline'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
 
     " Easy... motions... yeah.
     Plugin 'Lokaltog/vim-easymotion'
 
     " Glorious colorscheme
     Plugin 'nanotech/jellybeans.vim'
+    Plugin 'whatyouhide/vim-gotham'
+    Plugin 'tomasr/molokai'
+    
     " Autoclose (, " etc
     Plugin 'Townk/vim-autoclose'
 
     " Git wrapper inside Vim
-    Plugin 'tpope/vim-fugitive'
+    "Plugin 'tpope/vim-fugitive'
 
     " Handle surround chars like ''
     Plugin 'tpope/vim-surround'
@@ -82,6 +96,8 @@ set nocompatible
     " Awesome syntax checker.
     " REQUIREMENTS: See :h syntastic-intro
    "Plugin 'scrooloose/syntastic'
+    " HTML COLORS IN VIM 
+    Plugin 'ap/vim-css-color'
 
     " Functions, class data etc.
     " REQUIREMENTS: (exuberant)-ctags
@@ -108,7 +124,7 @@ set nocompatible
         filetype plugin indent on                   " detect file plugin+indent
         syntax on                                   " syntax highlighting
         set background=dark                         " we're using a dark bg
-        colorscheme molokai                      " colorscheme from plugin
+        colorscheme monochrome                      " colorscheme from plugin
         """ force behavior and filetypes, and by extension highlighting {{{
             augroup FileTypeRules
                 autocmd!
@@ -118,9 +134,9 @@ set nocompatible
             augroup END
         """ }}}
         """ 256 colors for maximum jellybeans bling. See commit log for info {{{
-            if (&term =~ "xterm") || (&term =~ "screen")
+            "if (&term =~ "xterm") || (&term =~ "screen")
                 set t_Co=256
-            endif
+            "endif
         """ }}}
         """ Custom highlighting, where NONE uses terminal background {{{
             function! CustomHighlighting()
@@ -150,7 +166,7 @@ set nocompatible
         set wildmode=longest,list                   " bash-like auto complete
         """ Depending on your setup you may want to enforce UTF-8.
         """ Should generally be set in your environment LOCALE/$LANG {{{
-             set encoding=utf-8                    " default $LANG/latin1
+             "set encoding=utf-8                    " default $LANG/latin1
              set fileencoding=utf-8                " default none
         """ }}}
     """ }}}
@@ -207,7 +223,7 @@ set nocompatible
         if has('persistent_undo') && exists("&undodir")
             set undodir=$HOME/.vim/undo/            " where to store undofiles
             set undofile                            " enable undofile
-            set undolevels=500                      " max undos stored
+            set undolevels=1000                      " max undos stored
             set undoreload=10000                    " buffer stored undos
         endif
     """ }}}
@@ -262,8 +278,9 @@ set nocompatible
         noremap <leader>ve :edit $HOME/.vimrc<CR>
         noremap <leader>vs :source $HOME/.vimrc<CR>
 
-        " Yank(copy) to system clipboard
+        " Yank and paste to/from system clipboard
         noremap <leader>y "+y
+        noremap <leader>p "+p
 
         " Toggle folding
         nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -290,12 +307,14 @@ set nocompatible
         map <F2> :NERDTreeToggle<CR>
         nmap <F3> :set relativenumber!<CR>
 
+        "DISABLE SEARCH HIGHLIGHT WITH ESC
+        nnoremap <esc> :noh<return><esc>
         " Disable annoying ex mode (Q)
         map Q <nop>
 
         " Buffers, preferred over tabs now with bufferline.
         nnoremap gn :bnext<CR>
-        nnoremap gN :bprevious<CR>
+        nnoremap gp :bprevious<CR>
         nnoremap gd :bdelete<CR>
         nnoremap gf <C-^>
     """ }}}
@@ -328,38 +347,6 @@ set nocompatible
             endfunction
 
             nnoremap <leader>s :call ToggleSyntaxHighlighthing()<CR>
-        """ }}}
-        """ Highlight characters past 79, toggle with <leader>h
-        """ You might want to override this function and its variables with
-        """ your own in .vimrc.last which might set for example colorcolumn or
-        """ even the textwidth. See https://github.com/timss/vimconf/pull/4 {{{
-            let g:overlength_enabled = 0
-            highlight OverLength ctermbg=238 guibg=#444444
-
-            function! ToggleOverLength()
-                if g:overlength_enabled == 0
-                    match OverLength /\%79v.*/
-                    let g:overlength_enabled = 1
-                    echo 'OverLength highlighting turned on'
-                else
-                    match
-                    let g:overlength_enabled = 0
-                    echo 'OverLength highlighting turned off'
-                endif
-            endfunction
-
-            nnoremap <leader>h :call ToggleOverLength()<CR>
-        """ }}}
-        """ Toggle relativenumber using <leader>r {{{
-            function! NumberToggle()
-                if(&relativenumber == 1)
-                    set number
-                else
-                    set relativenumber
-                endif
-            endfunction
-
-            nnoremap <leader>r :call NumberToggle()<CR>
         """ }}}
         """ Toggle text wrapping, wrap on whole words
         """ For more info see: http://stackoverflow.com/a/2470885/1076493 {{{
@@ -431,7 +418,7 @@ set nocompatible
         \ ]
 
     " CtrlP - don't recalculate files on start (slow)
-    let g:ctrlp_clear_cache_on_exit = 0
+    let g:ctrlp_clear_cache_on_exit = 1
     let g:ctrlp_working_path_mode = 'ra'
 
     " TagBar
@@ -452,152 +439,199 @@ set nocompatible
         autocmd InsertLeave * if pumvisible() == 0|pclose|endif
     augroup END
 
-    """ Lightline {{{
-        let g:lightline = {
-            \ 'colorscheme': 'default',
-            \ 'active': {
-            \     'left': [
-            \         ['mode', 'paste'],
-            \         ['readonly'],
-            \         ['ctrlpmark', 'bufferline']
-            \     ],
-            \     'right': [
-            \         ['lineinfo'],
-            \         ['percent'],
-            \         ['filetype' ]
-            \     ]
-            \ },
-            \ 'component': {
-            \     'paste': '%{&paste?"!":""}'
-            \ },
-            \ 'component_function': {
-            \     'mode'         : 'MyMode',
-            \     'fugitive'     : 'MyFugitive',
-            \     'readonly'     : 'MyReadonly',
-            \     'ctrlpmark'    : 'CtrlPMark',
-            \     'bufferline'   : 'MyBufferline',
-            \     'fileformat'   : 'MyFileformat',
-            \     'fileencoding' : 'MyFileencoding',
-            \     'filetype'     : 'MyFiletype'
-            \ },
-            \ 'component_expand': {
-            \     'syntastic': 'SyntasticStatuslineFlag',
-            \ },
-            \ 'component_type': {
-            \     'syntastic': 'middle',
-            \ },
-            \ 'subseparator': {
-            \     'left': '|', 'right': '|'
-            \ }
-            \ }
+    """ My StatusLine {{{
+    let g:currentmode={
+        \ 'n'  : 'N ',
+        \ 'no' : 'N·Operator Pending ',
+        \ 'v'  : 'V ',
+        \ 'V'  : 'V·Line ',
+        \ '' : 'V·Block ',
+        \ 's'  : 'Select ',
+        \ 'S'  : 'S·Line ',
+        \ '^s' : 'S·Block ',
+        \ 'i'  : 'I ',
+        \ 'R'  : 'R ',
+        \ 'Rv' : 'V·Replace ',
+        \ 'c'  : 'Command ',
+        \ 'cv' : 'Vim Ex ',
+        \ 'ce' : 'Ex ',
+        \ 'r'  : 'Prompt ',
+        \ 'rm' : 'More ',
+        \ 'r?' : 'Confirm ',
+        \ '!'  : 'Shell ',
+    \ 't'  : 'Terminal '
+        \}
 
-        let g:lightline.mode_map = {
-            \ 'n'      : ' N ',
-            \ 'i'      : ' I ',
-            \ 'R'      : ' R ',
-            \ 'v'      : ' V ',
-            \ 'V'      : 'V-L',
-            \ 'c'      : ' C ',
-            \ "\<C-v>" : 'V-B',
-            \ 's'      : ' S ',
-            \ 'S'      : 'S-L',
-            \ "\<C-s>" : 'S-B',
-            \ '?'      : '      ' }
+    function! ReadOnly()
+    if &readonly || !&modifiable
+        return '!'
+    else
+        return ''
+    endfunction
 
-        function! MyMode()
-            let fname = expand('%:t')
-            return fname == '__Tagbar__' ? 'Tagbar' :
-                    \ fname == 'ControlP' ? 'CtrlP' :
-                    \ winwidth('.') > 60 ? lightline#mode() : ''
-        endfunction
+    set statusline=
+    set statusline+=%0*\ %{toupper(g:currentmode[mode()])}
+    set statusline+=%8*\ %<%F\ %{ReadOnly()}\ %m\ 
+    set statusline+=%9*\ %=                                  " Space
+    set statusline+=%8*\ %y                               " FileType
+    set statusline+=%7*\ %{(&fenc!=''?&fenc:&enc)}\ %{&ff}\ " Encoding & Fileformat
+    """}}}
+    """" Lightline {{{
+        "let g:lightline = {
+            "\ 'colorscheme': '',
+            "\ 'active': {
+            "\     'left': [
+            "\         ['mode', 'paste'],
+            "\         ['readonly'],
+            "\         ['ctrlpmark', 'bufferline']
+            "\     ],
+            "\     'right': [
+            "\         ['lineinfo'],
+            "\         ['percent'],
+            "\         ['filetype' ]
+            "\     ]
+            "\ },
+            "\ 'component': {
+            "\     'paste': '%{&paste?"!":""}'
+            "\ },
+            "\ 'component_function': {
+            "\     'mode'         : 'MyMode',
+            "\     'fugitive'     : 'MyFugitive',
+            "\     'readonly'     : 'MyReadonly',
+            "\     'ctrlpmark'    : 'CtrlPMark',
+            "\     'bufferline'   : 'MyBufferline',
+            "\     'fileformat'   : 'MyFileformat',
+            "\     'fileencoding' : 'MyFileencoding',
+            "\     'filetype'     : 'MyFiletype'
+            "\ },
+            "\ 'component_expand': {
+            "\     'syntastic': 'SyntasticStatuslineFlag',
+            "\ },
+            "\ 'component_type': {
+            "\     'syntastic': 'middle',
+            "\ },
+            "\ 'subseparator': {
+            "\     'left': '|', 'right': '|'
+            "\ }
+            "\ }
 
-        function! MyFugitive()
-            try
-                if expand('%:t') !~? 'Tagbar' && exists('*fugitive#head')
-                    let mark = '± '
-                    let _ = fugitive#head()
-                    return strlen(_) ? mark._ : ''
-                endif
-            catch
-            endtry
-            return ''
-        endfunction
+        "let g:lightline.mode_map = {
+            "\ 'n'      : ' N ',
+            "\ 'i'      : ' I ',
+            "\ 'R'      : ' R ',
+            "\ 'v'      : ' V ',
+            "\ 'V'      : 'V-L',
+            "\ 'c'      : ' C ',
+            "\ "\<C-v>" : 'V-B',
+            "\ 's'      : ' S ',
+            "\ 'S'      : 'S-L',
+            "\ "\<C-s>" : 'S-B',
+            "\ '?'      : '      ' }
 
-        function! MyReadonly()
-            return &ft !~? 'help' && &readonly ? '≠' : '' " or ⭤
-        endfunction
+        "function! MyMode()
+            "let fname = expand('%:t')
+            "return fname == '__Tagbar__' ? 'Tagbar' :
+                    "\ fname == 'ControlP' ? 'CtrlP' :
+                    "\ winwidth('.') > 60 ? lightline#mode() : ''
+        "endfunction
 
-        function! CtrlPMark()
-            if expand('%:t') =~ 'ControlP'
-                call lightline#link('iR'[g:lightline.ctrlp_regex])
-                return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
-                    \ , g:lightline.ctrlp_next], 0)
-            else
-                return ''
-            endif
-        endfunction
+        "function! MyFugitive()
+            "try
+                "if expand('%:t') !~? 'Tagbar' && exists('*fugitive#head')
+                    "let mark = '± '
+                    "let _ = fugitive#head()
+                    "return strlen(_) ? mark._ : ''
+                "endif
+            "catch
+            "endtry
+            "return ''
+        "endfunction
 
-        function! MyBufferline()
-            call bufferline#refresh_status()
-            let b = g:bufferline_status_info.before
-            let c = g:bufferline_status_info.current
-            let a = g:bufferline_status_info.after
-            let alen = strlen(a)
-            let blen = strlen(b)
-            let clen = strlen(c)
-            let w = winwidth(0) * 4 / 11
-            if w < alen+blen+clen
-                let whalf = (w - strlen(c)) / 2
-                let aa = alen > whalf && blen > whalf ? a[:whalf] : alen + blen < w - clen || alen < whalf ? a : a[:(w - clen - blen)]
-                let bb = alen > whalf && blen > whalf ? b[-(whalf):] : alen + blen < w - clen || blen < whalf ? b : b[-(w - clen - alen):]
-                return (strlen(bb) < strlen(b) ? '...' : '') . bb . c . aa . (strlen(aa) < strlen(a) ? '...' : '')
-            else
-                return b . c . a
-            endif
-        endfunction
+        "function! MyReadonly()
+            "return &ft !~? 'help' && &readonly ? '≠' : '' " or ⭤
+        "endfunction
 
-        function! MyFileformat()
-            return winwidth('.') > 90 ? &fileformat : ''
-        endfunction
+        "function! CtrlPMark()
+            "if expand('%:t') =~ 'ControlP'
+                "call lightline#link('iR'[g:lightline.ctrlp_regex])
+                "return lightline#concatenate([g:lightline.ctrlp_prev, g:lightline.ctrlp_item
+                    "\ , g:lightline.ctrlp_next], 0)
+            "else
+                "return ''
+            "endif
+        "endfunction
 
-        function! MyFileencoding()
-            return winwidth('.') > 80 ? (strlen(&fenc) ? &fenc : &enc) : ''
-        endfunction
+        "function! MyBufferline()
+            "call bufferline#refresh_status()
+            "let b = g:bufferline_status_info.before
+            "let c = g:bufferline_status_info.current
+            "let a = g:bufferline_status_info.after
+            "let alen = strlen(a)
+            "let blen = strlen(b)
+            "let clen = strlen(c)
+            "let w = winwidth(0) * 4 / 11
+            "if w < alen+blen+clen
+                "let whalf = (w - strlen(c)) / 2
+                "let aa = alen > whalf && blen > whalf ? a[:whalf] : alen + blen < w - clen || alen < whalf ? a : a[:(w - clen - blen)]
+                "let bb = alen > whalf && blen > whalf ? b[-(whalf):] : alen + blen < w - clen || blen < whalf ? b : b[-(w - clen - alen):]
+                "return (strlen(bb) < strlen(b) ? '...' : '') . bb . c . aa . (strlen(aa) < strlen(a) ? '...' : '')
+            "else
+                "return b . c . a
+            "endif
+        "endfunction
 
-        function! MyFiletype()
-            return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-        endfunction
+        "function! MyFileformat()
+            "return winwidth('.') > 90 ? &fileformat : ''
+        "endfunction
 
-        let g:ctrlp_status_func = {
-            \ 'main': 'CtrlPStatusFunc_1',
-            \ 'prog': 'CtrlPStatusFunc_2',
-            \ }
+        "function! MyFileencoding()
+            "return winwidth('.') > 80 ? (strlen(&fenc) ? &fenc : &enc) : ''
+        "endfunction
 
-        function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-            let g:lightline.ctrlp_regex = a:regex
-            let g:lightline.ctrlp_prev = a:prev
-            let g:lightline.ctrlp_item = a:item
-            let g:lightline.ctrlp_next = a:next
-            return lightline#statusline(0)
-        endfunction
+        "function! MyFiletype()
+            "return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+        "endfunction
 
-        function! CtrlPStatusFunc_2(str)
-            return lightline#statusline(0)
-        endfunction
+        "let g:ctrlp_status_func = {
+            "\ 'main': 'CtrlPStatusFunc_1',
+            "\ 'prog': 'CtrlPStatusFunc_2',
+            "\ }
 
-        let g:tagbar_status_func = 'TagbarStatusFunc'
+        "function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+            "let g:lightline.ctrlp_regex = a:regex
+            "let g:lightline.ctrlp_prev = a:prev
+            "let g:lightline.ctrlp_item = a:item
+            "let g:lightline.ctrlp_next = a:next
+            "return lightline#statusline(0)
+        "endfunction
 
-        function! TagbarStatusFunc(current, sort, fname, ...) abort
-            let g:lightline.fname = a:fname
-            return lightline#statusline(0)
-        endfunction
+        "function! CtrlPStatusFunc_2(str)
+            "return lightline#statusline(0)
+        "endfunction
+
+        "let g:tagbar_status_func = 'TagbarStatusFunc'
+
+        "function! TagbarStatusFunc(current, sort, fname, ...) abort
+            "let g:lightline.fname = a:fname
+            "return lightline#statusline(0)
+        "endfunction
 
 
-    """ }}}
+    """" }}}
 """ }}}
 """ Local ending config, will overwrite anything above. Generally use this. {{{{
     " MINE SETTINGS
     let g:ctrlp_show_hidden = 1
+    let NERDTreeShowHidden=1
+
     if filereadable($HOME."/.vimrc.last")
         source $HOME/.vimrc.last
     endif
+    let python_highlight_all=1
+    set guiheadroom=0
+    "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    let g:deoplete#enable_at_startup = 1
+    "let g:clighter_autostart = 1
+
+    nmap n :norm! nzzzv<CR>
+    nmap N :norm! Nzzzv<CR>
